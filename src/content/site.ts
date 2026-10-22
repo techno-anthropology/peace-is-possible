@@ -502,7 +502,7 @@ export const resources = {
 
 export const contact = {
   h1: "Get in touch",
-  lede: "Questions about coaching? Send a note and we'll reply within a couple of days. The fastest way to start is a free phone call.",
+  lede: "Questions about coaching? Send a note. The fastest way to start is a free phone call.",
   referTitle: "Referring a client?",
   referBody: "Therapists, dietitians and treatment teams can refer clients with our short form. We coordinate care with clear roles.",
 };

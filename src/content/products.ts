@@ -98,7 +98,7 @@ const curated: Curated[] = [
     name: "Peace mug",
     sub: "11oz ceramic",
     desc: null,
-    image: "/shop/peace-mug-11oz.webp",
+    image: "/shop/peace-mug-plain.webp",
   },
 ];
 

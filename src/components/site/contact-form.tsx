@@ -29,10 +29,7 @@ export function ContactForm({ className = "" }: { className?: string }) {
     return (
       <div role="status" className={`flex items-start gap-3 rounded-[var(--radius-md)] border border-[var(--line)] bg-[var(--bg-2)] p-5 ${className}`}>
         <CheckCircle size={24} weight="fill" className="shrink-0 text-[var(--accent)]" />
-        <div>
-          <p className="font-semibold">Thanks, your message is in.</p>
-          <p className="mt-1 text-sm text-[var(--ink-2)]">We&apos;ll reply within a couple of days.</p>
-        </div>
+        <p className="font-semibold">Thanks, your message is in.</p>
       </div>
     );
   }
