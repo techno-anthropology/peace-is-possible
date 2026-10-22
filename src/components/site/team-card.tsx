@@ -58,7 +58,7 @@ export function TeamCard({ coach, priority = false, className = "" }: { coach: C
           animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
           transition={reduce ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden"
-          aria-hidden={!open}
+          inert={!open}
         >
           <div className="pt-5">
             <p className="text-[15px] leading-relaxed text-[#d8e5dc]">{coach.short}</p>
