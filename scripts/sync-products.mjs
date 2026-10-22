@@ -3,8 +3,9 @@
 // Only the handles curated in src/content/products.ts are kept. Prices are
 // integer cents. The variant IDs feed the cart permalinks used at checkout.
 import { readFile, writeFile } from "node:fs/promises";
+import { site } from "../src/content/site.ts";
 
-const store = "https://peaceispossiblerecovery.com";
+const store = site.store;
 const root = new URL("..", import.meta.url);
 const curatedFile = new URL("src/content/products.ts", root);
 const outFile = new URL("src/content/products.generated.json", root);
