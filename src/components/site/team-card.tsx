@@ -10,7 +10,7 @@ import { btnPrimary } from "./styles";
 
 // Tall photo card. Name and role sit on a soft gradient; hover, focus or tap
 // slides up a panel with focus areas, credentials and a booking button.
-export function TeamCard({ coach, priority = false, className = "" }: { coach: Coach; priority?: boolean; className?: string }) {
+export function TeamCard({ coach, preload = false, className = "" }: { coach: Coach; preload?: boolean; className?: string }) {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const first = coach.name.split(" ")[0];
@@ -29,7 +29,7 @@ export function TeamCard({ coach, priority = false, className = "" }: { coach: C
         src={coach.photo}
         alt={`${coach.name}, ${coach.role}`}
         fill
-        priority={priority}
+        preload={preload}
         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
         className={`object-cover object-top transition duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${open ? "scale-[1.04]" : "scale-100"}`}
       />

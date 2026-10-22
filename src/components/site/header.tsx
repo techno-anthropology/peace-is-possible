@@ -44,7 +44,7 @@ export function Header() {
       >
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-6 px-4 sm:px-6 lg:h-[72px] lg:px-10">
           <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${site.shortName} home`}>
-            <Image src={site.logoMark} alt="" width={40} height={40} className="size-9 lg:size-10" priority />
+            <Image src={site.logoMark} alt="" width={40} height={40} className="size-9 object-contain lg:size-10" />
             <span className="text-[17px] font-semibold tracking-[-0.02em]">{site.shortName}</span>
           </Link>
 

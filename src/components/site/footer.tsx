@@ -14,7 +14,7 @@ export function Footer() {
         <div className="mt-14 grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <Image src={site.logoMark} alt="" width={48} height={48} className="size-12" />
+              <Image src={site.logoMark} alt="" width={48} height={48} className="size-12 object-contain" />
               <span className="text-lg font-semibold tracking-[-0.02em]">{site.name}</span>
             </Link>
             <p className="mt-4 max-w-[42ch] leading-relaxed text-[var(--ink-2)]">{footer.blurb}</p>

@@ -11,7 +11,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-[var(--hero-bg)] pb-20 pt-32 text-[var(--hero-ink)] md:pb-28 md:pt-44">
-        <Image src="/canopy/misty-forest.webp" alt="" fill priority sizes="100vw" className="-z-10 object-cover opacity-30" />
+        <Image src="/canopy/misty-forest.webp" alt="" fill loading="eager" fetchPriority="high" quality={60} sizes="100vw" className="-z-10 object-cover opacity-30" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[color-mix(in_srgb,var(--hero-bg)_40%,transparent)] to-[var(--hero-bg)]" />
         <div className={container}>
           <h1 className="text-[2.5rem] font-semibold leading-[1.04] tracking-[-0.04em] md:text-6xl lg:text-7xl">{story.h1}</h1>

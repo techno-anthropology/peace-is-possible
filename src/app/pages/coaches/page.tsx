@@ -20,7 +20,7 @@ export default function CoachesPage() {
         {coaches.map((c, i) => (
           <article key={c.id} className="grid items-start gap-10 md:grid-cols-12 md:gap-12">
             <Reveal className={`md:col-span-5 ${i % 2 ? "md:order-2 md:col-start-8" : ""}`}>
-              <TeamCard coach={c} priority={i === 0} />
+              <TeamCard coach={c} preload={i === 0} />
             </Reveal>
             <Reveal delay={0.1} className={`md:col-span-6 md:pt-6 ${i % 2 ? "md:order-1" : "md:col-start-7"}`}>
               <h2 className={h2}>{c.name}</h2>

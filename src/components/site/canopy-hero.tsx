@@ -2,7 +2,7 @@
 
 import { useRef, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { ArrowRight, Leaf } from "@phosphor-icons/react";
@@ -11,20 +11,31 @@ import { BookButton } from "./booking";
 import { useSceneMode } from "@/lib/scene-mode";
 import { btnGhostHero, btnPrimary } from "./styles";
 
+const mq = "(max-width: 767px)";
 
 const CanopyScene = dynamic(() => import("./canopy-scene"), { ssr: false });
 
-const still = "/canopy/canopy-sun.webp";
-// Portrait, high-res photo for phones, where the landscape one would be upscaled.
-const stillTall = "/canopy/canopy-tall.webp";
+// The hero photo is the LCP element. A <picture> lets the browser pick the
+// portrait crop on phones from the first HTML, before any script runs.
+function HeroStill({ className = "" }: { className?: string }) {
+  const common = { alt: "", sizes: "100vw", quality: 60, fetchPriority: "high", loading: "eager" } as const;
+  const { props: wide } = getImageProps({ ...common, src: "/canopy/canopy-sun.webp", width: 960, height: 720 });
+  const { props: tall } = getImageProps({ ...common, src: "/canopy/canopy-tall.webp", width: 1200, height: 2133 });
+  return (
+    <picture>
+      <source media={mq} srcSet={tall.srcSet} sizes="100vw" />
+      <img {...wide} alt="" className={`absolute inset-0 size-full object-cover ${className}`} />
+    </picture>
+  );
+}
 
-function Stage({ progress, active, narrow }: { progress: MotionValue<number>; active: boolean; narrow: boolean }) {
+function Stage({ progress, active }: { progress: MotionValue<number>; active: boolean }) {
   const mode = useSceneMode();
 
   return (
     <div className="absolute inset-0 bg-[var(--hero-bg)]">
       {/* Still image sits underneath until the scene mounts, and is the whole hero under reduced motion. */}
-      <Image src={narrow ? stillTall : still} alt="" fill priority sizes="100vw" className="object-cover" />
+      <HeroStill />
       {mode === "lite" && <LiteCanopy />}
       {mode === "full" && (
         <div className={`absolute inset-0 cn-fadeIn`}>
@@ -101,7 +112,7 @@ export function CanopyHero() {
   if (reduce) {
     return (
       <section className="relative min-h-[100dvh] overflow-hidden bg-[var(--hero-bg)] text-[var(--hero-ink)]">
-        <Image src={still} alt="" fill priority sizes="100vw" className="object-cover opacity-60" />
+        <HeroStill className="opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--hero-bg)] via-[color-mix(in_srgb,var(--hero-bg)_70%,transparent)] to-transparent" />
         <HeroCopy />
       </section>
@@ -113,7 +124,7 @@ export function CanopyHero() {
       <div className="sticky top-0 h-[100dvh] overflow-hidden">
         <motion.div className="absolute inset-0" style={{ clipPath: narrow ? clipMobile : clipDesktop }}>
           <motion.div className="absolute inset-0" style={{ scale: sceneScale }}>
-            <Stage progress={p} active={inView} narrow={narrow} />
+            <Stage progress={p} active={inView} />
           </motion.div>
         </motion.div>
 
@@ -140,7 +151,6 @@ export function CanopyHero() {
   );
 }
 
-const mq = "(max-width: 767px)";
 function useNarrow() {
   return useSyncExternalStore(
     (notify) => {
