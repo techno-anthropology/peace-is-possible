@@ -4,58 +4,21 @@ import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import type { MotionValue } from "motion/react";
-import type { Palette } from "@/components/shared/prototype";
 
 // Light falling through a forest canopy, seen from the forest floor.
 // Everything is procedural (canvas-drawn leaf atlases + small shaders) so the
 // scene ships no model or texture downloads.
 
-type Tone = {
-  glow: string;
-  mid: string;
-  base: string;
-  layers: [string, string, string, string];
-  ray: string;
-  rayBlend: THREE.Blending;
-  rayStrength: number;
-  fall: string[];
-  mote: string;
-};
-
-const tones: Record<Palette, Tone> = {
-  forest: {
-    glow: "#fff3cf",
-    mid: "#1f4630",
-    base: "#07120d",
-    layers: ["#3f6d4c", "#21452f", "#123222", "#06150d"],
-    ray: "#fff1c4",
-    rayBlend: THREE.AdditiveBlending,
-    rayStrength: 0.22,
-    fall: ["#4f8a5c", "#6aa36f", "#c9b35a", "#2f6b45"],
-    mote: "#fff6d8",
-  },
-  sage: {
-    glow: "#ffffff",
-    mid: "#c3d9c0",
-    base: "#dde8da",
-    layers: ["#a9c7a9", "#86ad89", "#5f8d68", "#3d6a4a"],
-    ray: "#ffffff",
-    rayBlend: THREE.NormalBlending,
-    rayStrength: 0.32,
-    fall: ["#6f9d75", "#8db58e", "#c2b56a", "#557f5d"],
-    mote: "#ffffff",
-  },
-  dawn: {
-    glow: "#ffdcaa",
-    mid: "#35593f",
-    base: "#0c1c16",
-    layers: ["#4a6e4f", "#2a4a34", "#163526", "#0a1912"],
-    ray: "#ffd9a6",
-    rayBlend: THREE.AdditiveBlending,
-    rayStrength: 0.24,
-    fall: ["#5c8f5f", "#7fa86c", "#d6a95e", "#3a6b47"],
-    mote: "#ffe9c9",
-  },
+const tone = {
+  glow: "#fff3cf",
+  mid: "#1f4630",
+  base: "#07120d",
+  layers: ["#3f6d4c", "#21452f", "#123222", "#06150d"],
+  ray: "#fff1c4",
+  rayBlend: THREE.AdditiveBlending,
+  rayStrength: 0.22,
+  fall: ["#4f8a5c", "#6aa36f", "#c9b35a", "#2f6b45"],
+  mote: "#fff6d8",
 };
 
 // Sun gap in the canopy, in normalized screen space (0..1, y up).
@@ -212,7 +175,7 @@ function frameAt(z: number, aspect: number) {
   return { w: h * aspect, h };
 }
 
-function Backdrop({ tone }: { tone: Tone }) {
+function Backdrop() {
   const { size } = useThree();
   const aspect = size.width / size.height;
   const z = -14;
@@ -273,7 +236,7 @@ const LAYERS = [
   { z: 3.5, seed: 51, density: 0.7, leaf: 2.4, blur: 7, sway: 0.011, parallax: 0.38 },
 ];
 
-function CanopyLayers({ tone, progress }: { tone: Tone; progress: MotionValue<number> }) {
+function CanopyLayers({ progress }: { progress: MotionValue<number> }) {
   const textures = useMemo(() => LAYERS.map((l) => makeCanopyTexture(l.seed, l.density, l.leaf, l.blur)), []);
   useEffect(() => () => textures.forEach((t) => t.dispose()), [textures]);
   const refs = useRef<(THREE.Mesh | null)[]>([]);
@@ -318,7 +281,7 @@ const RAYS = [
   { angle: 0.33, width: 0.8, phase: 5.1 },
 ];
 
-function GodRays({ tone }: { tone: Tone }) {
+function GodRays() {
   const { size } = useThree();
   const aspect = size.width / size.height;
   const z = 0.5;
@@ -366,7 +329,7 @@ function GodRays({ tone }: { tone: Tone }) {
 
 const FALL_COUNT = 34;
 
-function FallingLeaves({ tone, progress }: { tone: Tone; progress: MotionValue<number> }) {
+function FallingLeaves({ progress }: { progress: MotionValue<number> }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const sprite = useMemo(() => makeLeafSprite(), []);
   useEffect(() => () => sprite.dispose(), [sprite]);
@@ -395,7 +358,7 @@ function FallingLeaves({ tone, progress }: { tone: Tone; progress: MotionValue<n
     const c = new THREE.Color();
     seeds.forEach((s, i) => m.setColorAt(i, c.set(tone.fall[s.color])));
     if (m.instanceColor) m.instanceColor.needsUpdate = true;
-  }, [seeds, tone]);
+  }, [seeds]);
 
   const dummy = useMemo(() => new THREE.Object3D(), []);
   useFrame(({ clock }) => {
@@ -426,7 +389,7 @@ function FallingLeaves({ tone, progress }: { tone: Tone; progress: MotionValue<n
 
 const MOTES = 320;
 
-function Motes({ tone }: { tone: Tone }) {
+function Motes() {
   const dot = useMemo(() => makeDot(), []);
   useEffect(() => () => dot.dispose(), [dot]);
   const points = useRef<THREE.Points>(null);
@@ -484,16 +447,7 @@ function CameraRig({ progress }: { progress: MotionValue<number> }) {
   return null;
 }
 
-export default function CanopyScene({
-  palette,
-  progress,
-  active,
-}: {
-  palette: Palette;
-  progress: MotionValue<number>;
-  active: boolean;
-}) {
-  const tone = tones[palette];
+export default function CanopyScene({ progress, active }: { progress: MotionValue<number>; active: boolean }) {
   return (
     <Canvas
       frameloop={active ? "always" : "never"}
@@ -505,11 +459,11 @@ export default function CanopyScene({
     >
       <color attach="background" args={[tone.base]} />
       <CameraRig progress={progress} />
-      <Backdrop tone={tone} />
-      <GodRays tone={tone} />
-      <CanopyLayers tone={tone} progress={progress} />
-      <Motes tone={tone} />
-      <FallingLeaves tone={tone} progress={progress} />
+      <Backdrop />
+      <GodRays />
+      <CanopyLayers progress={progress} />
+      <Motes />
+      <FallingLeaves progress={progress} />
     </Canvas>
   );
 }

@@ -1,27 +1,10 @@
 @import "tailwindcss";
 
-/*
-  Palette tokens. Every direction renders inside .palette-root[data-palette=…]
-  and uses only these variables for colour, so the prototype toggle can swap
-  palettes without touching components.
-
-  forest: deep, dark, Calm-like. sage: light and airy.
-  dawn: dark hero (--hero-*) that opens into light sections.
-  Hero-specific tokens let a direction keep its hero immersive in any palette.
-*/
-.palette-root {
+:root {
+  color-scheme: dark;
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --danger: #b4423a;
-
-  background: var(--bg);
-  color: var(--ink);
-  min-height: 100dvh;
-}
-
-[data-palette="forest"] {
-  color-scheme: dark;
   --bg: #0a1711;
   --bg-2: #10221a;
   --surface: #132a20;
@@ -38,44 +21,6 @@
   --hero-ink: #eef5f0;
   --hero-ink-2: #b2c7b9;
   --danger: #f08a80;
-}
-
-[data-palette="sage"] {
-  color-scheme: light;
-  --bg: #eef3ec;
-  --bg-2: #e2eadf;
-  --surface: #f8fbf6;
-  --field: #fcfefb;
-  --ink: #13261c;
-  --ink-2: #44594c;
-  --ink-3: #6b7f72;
-  --line: rgb(19 38 28 / 0.12);
-  --line-strong: rgb(19 38 28 / 0.28);
-  --accent: #2a6a4b;
-  --accent-ink: #f3f8f4;
-  --accent-soft: rgb(42 106 75 / 0.1);
-  --hero-bg: #dde8da;
-  --hero-ink: #10241a;
-  --hero-ink-2: #3f5547;
-}
-
-[data-palette="dawn"] {
-  color-scheme: light;
-  --bg: #f1f5ef;
-  --bg-2: #e4ece2;
-  --surface: #fafcf8;
-  --field: #ffffff;
-  --ink: #102019;
-  --ink-2: #435749;
-  --ink-3: #6a7d70;
-  --line: rgb(16 32 25 / 0.12);
-  --line-strong: rgb(16 32 25 / 0.28);
-  --accent: #1f6a50;
-  --accent-ink: #f1f8f3;
-  --accent-soft: rgb(31 106 80 / 0.1);
-  --hero-bg: #0c1c16;
-  --hero-ink: #eef5f0;
-  --hero-ink-2: #b7cabd;
 }
 
 @theme inline {
@@ -100,17 +45,19 @@ html {
 }
 
 body {
-  background: #0a1711;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent, #86d4ab);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
-/* Long-form text (articles, story). Directions may override per wrapper. */
+/* Long-form text (articles). */
 .prose-pip {
   max-width: 68ch;
   font-size: 1.0625rem;

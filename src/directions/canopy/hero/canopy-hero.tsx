@@ -8,7 +8,7 @@ import { motion, useInView, useReducedMotion, useScroll, useTransform, type Moti
 import { ArrowRight, Leaf } from "@phosphor-icons/react";
 import { coaching, home } from "@/content/site";
 import { BookButton } from "@/components/shared/booking";
-import { usePalette, useSceneMode } from "@/components/shared/prototype";
+import { useSceneMode } from "@/lib/scene-mode";
 import { to } from "../paths";
 import { btnGhostHero, btnPrimary } from "../ui/styles";
 
@@ -21,7 +21,6 @@ const stillTall = "/canopy/canopy-tall.webp";
 
 function Stage({ progress, active, narrow }: { progress: MotionValue<number>; active: boolean; narrow: boolean }) {
   const mode = useSceneMode();
-  const palette = usePalette();
 
   return (
     <div className="absolute inset-0 bg-[var(--hero-bg)]">
@@ -30,7 +29,7 @@ function Stage({ progress, active, narrow }: { progress: MotionValue<number>; ac
       {mode === "lite" && <LiteCanopy />}
       {mode === "full" && (
         <div className={`absolute inset-0 cn-fadeIn`}>
-          <CanopyScene palette={palette} progress={progress} active={active} />
+          <CanopyScene progress={progress} active={active} />
         </div>
       )}
     </div>
