@@ -5,10 +5,8 @@ import Image from "next/image";
 import { ArrowLeft, ArrowSquareOut, X } from "@phosphor-icons/react";
 import { booking, coaches, ctas, type CoachId } from "@/content/site";
 
-// Booking flow shared by every direction: "What brings you here?" chooser,
-// then the coach's Google appointment page embedded in the same dialog.
-// Styling comes from the palette tokens (--surface, --ink, --accent, ...) so
-// each direction themes it without forking the logic.
+// "What brings you here?" chooser, then the coach's Google appointment page
+// embedded in the same dialog.
 
 type BookingCtx = { open: (coach?: CoachId) => void };
 const Ctx = createContext<BookingCtx | null>(null);

@@ -23,6 +23,9 @@ function resolve(p: Product, chosen: string[]): string[] {
   return out;
 }
 
+const field =
+  "w-full appearance-none rounded-[var(--radius-sm)] border border-[var(--line-strong)] bg-[var(--field)] px-3.5 py-2.5 text-[var(--ink)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/25";
+
 export function ProductCard({ product }: { product: Product }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -39,9 +42,6 @@ export function ProductCard({ product }: { product: Product }) {
     dialogRef.current?.close();
     openBag();
   };
-
-  const field =
-    "w-full appearance-none rounded-[var(--radius-sm)] border border-[var(--line-strong)] bg-[var(--field)] px-3.5 py-2.5 text-[var(--ink)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/25";
 
   return (
     <article className="group relative">

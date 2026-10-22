@@ -75,7 +75,6 @@ const pathOf = (href) => {
   return u.origin === new URL(base).origin ? u.pathname : null;
 };
 
-// 1. Crawl every internal route from "/".
 const crawl = await newPage(desktop);
 const routes = [];
 const meta = new Map();
@@ -115,7 +114,6 @@ const missingFromSitemap = routes.filter((r) => !sitemapPaths.includes(r));
 const notCrawled = sitemapPaths.filter((p) => !routes.includes(p));
 check("sitemap.xml lists exactly the crawled routes", !missingFromSitemap.length && !notCrawled.length, [...missingFromSitemap, ...notCrawled].join(", "));
 
-// 2. Layout at every size: no horizontal overflow; the app demo frame fits on screen.
 async function checkLayout(size) {
   const { page, close } = await newPage(size);
   const overflowing = [];
@@ -138,7 +136,6 @@ async function checkLayout(size) {
 }
 await Promise.all(sizes.map(checkLayout));
 
-// 3. Booking: CTA opens the chooser, each coach loads their appointment page, Escape closes.
 {
   const { page, close } = await newPage(desktop);
   await page.goto(base + "/", { waitUntil: "networkidle" });
@@ -156,7 +153,6 @@ await Promise.all(sizes.map(checkLayout));
   await close();
 }
 
-// 4. Mobile menu opens, closes, and every link lands on its page.
 {
   const { page, close } = await newPage(mobile);
   await page.goto(base + "/", { waitUntil: "networkidle" });
@@ -182,7 +178,6 @@ await Promise.all(sizes.map(checkLayout));
   await close();
 }
 
-// 5. Podcast: YouTube loads only after a click.
 {
   const { page, close } = await newPage(desktop);
   await page.goto(base + "/", { waitUntil: "networkidle" });
@@ -193,7 +188,6 @@ await Promise.all(sizes.map(checkLayout));
   await close();
 }
 
-// 6. Cart: add a coffee and a tee, change quantity, reload, check the permalink.
 {
   const generated = JSON.parse(await readFile(new URL("src/content/products.generated.json", root), "utf8"));
   const variantId = (handle, options) => generated[handle].variants.find((v) => v.options.join("/") === options.join("/")).id;
@@ -231,7 +225,6 @@ await Promise.all(sizes.map(checkLayout));
   await close();
 }
 
-// 7. Contact form posts to Shopify with Shopify's field names (inspected, never submitted).
 {
   const { page, close } = await newPage(desktop);
   await page.goto(base + "/pages/contact", { waitUntil: "networkidle" });
@@ -245,7 +238,6 @@ await Promise.all(sizes.map(checkLayout));
   await close();
 }
 
-// 8. Redirects from retired and prototype URLs.
 for (const [from, to] of [
   ["/pages/our-approach", "/pages/eating-disorder-recovery-coaching"],
   ["/v1-canopy/pages/coaches", "/pages/coaches"],
@@ -258,7 +250,6 @@ for (const [from, to] of [
   check(`redirect ${from} -> ${to}`, res.status === 308 && location && new URL(location, base).pathname === to, `${res.status} ${location}`);
 }
 
-// 9. Accessibility: no serious or critical axe violations, desktop and mobile.
 async function checkAxe(label, size) {
   const { page, close } = await newPage(size);
   const failures = [];

@@ -1,4 +1,4 @@
-// Canopy-only CSS (keyframes for the lite hero, marquee). Shipped as a <style>
+// Site keyframes (lite hero, marquee, bag drawer). Shipped as a <style>
 // element because the project's turbopack CSS rule disables CSS modules.
 const css = `
 /* Lite hero for phones: a canopy photo with CSS light shafts and a few falling leaves. */

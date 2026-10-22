@@ -5,8 +5,7 @@ export function JsonLd({ data }: { data: object | object[] }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
 
-// Renders article blocks as plain semantic HTML. Each direction styles it
-// through a wrapper class (e.g. `.prose-pip`).
+// Plain semantic HTML; the `.prose-pip` wrapper styles it.
 export function ArticleBody({ blocks }: { blocks: Block[] }) {
   return (
     <>
@@ -40,7 +39,6 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
   );
 }
 
-// Required in every direction's footer.
 export function CrisisNotice({ className = "" }: { className?: string }) {
   return (
     <aside aria-label={crisis.title} className={className}>
