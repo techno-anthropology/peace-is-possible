@@ -1,69 +1,65 @@
 import Image from "next/image";
+import Link from "next/link";
+import { site } from "@/content/site";
 
-export default function Home() {
+const options = [
+  {
+    href: "/v1-canopy",
+    name: "Canopy",
+    palette: "Deep forest",
+    idea: "Light falls through a forest canopy and leaves drift as you scroll. The closest to Calm.",
+    shot: "/previews/v1-canopy.webp",
+  },
+  {
+    href: "/v2-water",
+    name: "Still water",
+    palette: "Morning sage",
+    idea: "A pond surface that ripples under your cursor or finger. Built around noticing and mindfulness.",
+    shot: "/previews/v2-water.webp",
+  },
+  {
+    href: "/v3-peak",
+    name: "Peak",
+    palette: "Forest to light",
+    idea: "Pikes Peak at dawn. Scrolling moves you forward through mist and mountain layers, then opens into light.",
+    shot: "/previews/v3-peak.webp",
+  },
+];
+
+export default function Hub() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="palette-root min-h-[100dvh] px-4 py-14 md:px-10 md:py-20" data-palette="forest">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex items-center gap-4">
+          <Image src={site.logoMark} alt="" width={56} height={56} className="size-12 md:size-14" />
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Peace is Possible redesign</h1>
+            <p className="text-[var(--ink-2)]">Three directions. Same content, different ideas.</p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+          {options.map((o) => (
+            <li key={o.href}>
+              <Link
+                href={o.href}
+                className="group block overflow-hidden rounded-[var(--radius-lg)] border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--accent)]"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-[var(--bg-2)]">
+                  <Image src={o.shot} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover object-left-top transition duration-700 group-hover:scale-[1.03]" />
+                </div>
+                <div className="p-5">
+                  <p className="text-lg font-semibold">{o.name}</p>
+                  <p className="text-sm text-[var(--accent)]">{o.palette}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--ink-2)]">{o.idea}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-10 max-w-2xl text-sm text-[var(--ink-2)]">
+          Every direction has a Prototype button at the bottom of the screen. Use it to switch directions or preview the other two palettes.
+        </p>
+      </div>
+    </main>
   );
 }

@@ -1,26 +1,160 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Palette tokens. Every direction renders inside .palette-root[data-palette=…]
+  and uses only these variables for colour, so the prototype toggle can swap
+  palettes without touching components.
+
+  forest: deep, dark, Calm-like. sage: light and airy.
+  dawn: dark hero (--hero-*) that opens into light sections.
+  Hero-specific tokens let a direction keep its hero immersive in any palette.
+*/
+.palette-root {
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --danger: #b4423a;
+
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100dvh;
+}
+
+[data-palette="forest"] {
+  color-scheme: dark;
+  --bg: #0a1711;
+  --bg-2: #10221a;
+  --surface: #132a20;
+  --field: #0e1f17;
+  --ink: #e4eee7;
+  --ink-2: #a6bcae;
+  --ink-3: #7c9586;
+  --line: rgb(214 236 222 / 0.12);
+  --line-strong: rgb(214 236 222 / 0.24);
+  --accent: #86d4ab;
+  --accent-ink: #062014;
+  --accent-soft: rgb(134 212 171 / 0.14);
+  --hero-bg: #07120d;
+  --hero-ink: #eef5f0;
+  --hero-ink-2: #b2c7b9;
+  --danger: #f08a80;
+}
+
+[data-palette="sage"] {
+  color-scheme: light;
+  --bg: #eef3ec;
+  --bg-2: #e2eadf;
+  --surface: #f8fbf6;
+  --field: #fcfefb;
+  --ink: #13261c;
+  --ink-2: #44594c;
+  --ink-3: #6b7f72;
+  --line: rgb(19 38 28 / 0.12);
+  --line-strong: rgb(19 38 28 / 0.28);
+  --accent: #2a6a4b;
+  --accent-ink: #f3f8f4;
+  --accent-soft: rgb(42 106 75 / 0.1);
+  --hero-bg: #dde8da;
+  --hero-ink: #10241a;
+  --hero-ink-2: #3f5547;
+}
+
+[data-palette="dawn"] {
+  color-scheme: light;
+  --bg: #f1f5ef;
+  --bg-2: #e4ece2;
+  --surface: #fafcf8;
+  --field: #ffffff;
+  --ink: #102019;
+  --ink-2: #435749;
+  --ink-3: #6a7d70;
+  --line: rgb(16 32 25 / 0.12);
+  --line-strong: rgb(16 32 25 / 0.28);
+  --accent: #1f6a50;
+  --accent-ink: #f1f8f3;
+  --accent-soft: rgb(31 106 80 / 0.1);
+  --hero-bg: #0c1c16;
+  --hero-ink: #eef5f0;
+  --hero-ink-2: #b7cabd;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-hero: var(--hero-bg);
+  --color-hero-ink: var(--hero-ink);
+  --color-hero-ink-2: var(--hero-ink-2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #0a1711;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent, #86d4ab);
+  outline-offset: 3px;
+}
+
+/* Long-form text (articles, story). Directions may override per wrapper. */
+.prose-pip {
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.prose-pip > * + * {
+  margin-top: 1.1em;
+}
+.prose-pip h2 {
+  margin-top: 2.2em;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.prose-pip h3 {
+  margin-top: 1.8em;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.prose-pip ul,
+.prose-pip ol {
+  padding-left: 1.25em;
+}
+.prose-pip ul {
+  list-style: disc;
+}
+.prose-pip ol {
+  list-style: decimal;
+}
+.prose-pip li + li {
+  margin-top: 0.4em;
+}
+.prose-pip li::marker {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
