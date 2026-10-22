@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
+import { indexable, metadataBase } from "@/lib/seo";
 import { BookingProvider } from "@/components/site/booking";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -10,10 +11,9 @@ import { SiteStyles } from "@/components/site/site-styles";
 const body = Figtree({ variable: "--font-body", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase,
   title: { default: site.name, template: `%s | ${site.shortName}` },
-  icons: { icon: site.logoMark },
-  robots: { index: false, follow: false },
+  robots: indexable ? { index: true, follow: true } : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

@@ -1,18 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { articles } from "@/content/articles";
 import { formatDate } from "@/components/site/blocks";
-import { site } from "@/content/site";
+import { pageMeta } from "@/lib/seo";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { container } from "@/components/site/styles";
 
-export const metadata: Metadata = {
-  title: { absolute: "Recovery Articles | Peace is Possible Recovery Coaching" },
-  description: "Ronnie's articles on mindfulness, self-compassion, intention and authenticity in eating disorder recovery.",
-  alternates: { canonical: `${site.url}/blogs/news` },
-};
+export const metadata = pageMeta("articles");
 
 export default function ArticlesIndex() {
   return (

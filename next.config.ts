@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
+import { redirects } from "./src/content/site";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      ...redirects.map((r) => ({ source: r.from, destination: r.to, permanent: true })),
+      // Prototype links were shared with the client before launch.
+      { source: "/v1-canopy", destination: "/", permanent: true },
+      { source: "/v1-canopy/:path+", destination: "/:path+", permanent: true },
+      { source: "/v2-water/:path*", destination: "/", permanent: true },
+      { source: "/v3-peak/:path*", destination: "/", permanent: true },
+    ];
   },
 };
 

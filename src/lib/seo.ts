@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
-import { coaches, coaching, seo, site } from "@/content/site";
+import { coaches, coaching, home, seo, site } from "@/content/site";
 import type { Article } from "@/content/articles";
 
 type SeoKey = keyof typeof seo;
 
-// Canonicals point at the production URL so prototype routes never compete
-// with the live site. Prototypes are also noindex (see root layout).
-export function pageMeta(key: SeoKey, path: string): Metadata {
-  const { title, description } = seo[key];
+// Preview deployments must stay out of search; only production sets this.
+export const indexable = process.env.SITE_INDEXABLE === "true";
+
+// Absolute URLs for shared-link images. Vercel sets this to the production
+// domain (the vercel.app one until a custom domain is attached).
+const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+export const metadataBase = new URL(productionHost ? `https://${productionHost}` : site.url);
+
+// Child segments that set openGraph replace the root's, so every page names
+// the shared image (app/opengraph-image.tsx) explicitly.
+const images = [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${site.name}: ${home.hero.headline}` }];
+
+// Canonicals always point at the production domain, whatever host serves the page.
+export function pageMeta(key: SeoKey): Metadata {
+  const { path, title, description } = seo[key];
   const url = `${site.url}${path}`;
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, siteName: site.name, type: "website", images: [{ url: site.logoFull }] },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { title, description, url, siteName: site.name, type: "website", images },
+    twitter: { card: "summary_large_image", title, description, images },
   };
 }
 
@@ -24,7 +35,8 @@ export function articleMeta(article: Article): Metadata {
     title: { absolute: `${article.title} | Peace is Possible` },
     description: article.excerpt,
     alternates: { canonical: url },
-    openGraph: { title: article.title, description: article.excerpt, url, type: "article" },
+    openGraph: { title: article.title, description: article.excerpt, url, siteName: site.name, type: "article", images },
+    twitter: { card: "summary_large_image", title: article.title, description: article.excerpt, images },
   };
 }
 

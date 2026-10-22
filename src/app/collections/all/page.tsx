@@ -6,7 +6,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { container, h2 } from "@/components/site/styles";
 
-export const metadata = pageMeta("shop", "/collections/all");
+export const metadata = pageMeta("shop");
 
 const price = (n: number) => `$${n.toFixed(2)}`;
 

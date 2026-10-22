@@ -5,7 +5,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { btnPrimary, container } from "@/components/site/styles";
 
-export const metadata = pageMeta("testimonials", "/pages/testimonials");
+export const metadata = pageMeta("testimonials");
 
 export default function TestimonialsPage() {
   return (

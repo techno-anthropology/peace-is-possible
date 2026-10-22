@@ -7,7 +7,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { btnPrimary, container, h2 } from "@/components/site/styles";
 
-export const metadata = pageMeta("binge", "/pages/binge-eating-recovery-coaching");
+export const metadata = pageMeta("binge");
 
 export default function BingePage() {
   return (

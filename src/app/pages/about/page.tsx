@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/seo";
 import { Reveal } from "@/components/site/reveal";
 import { btnPrimary, container } from "@/components/site/styles";
 
-export const metadata = pageMeta("about", "/pages/about");
+export const metadata = pageMeta("about");
 
 export default function AboutPage() {
   return (

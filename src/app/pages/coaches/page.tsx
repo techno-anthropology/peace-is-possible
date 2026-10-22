@@ -8,7 +8,7 @@ import { Reveal } from "@/components/site/reveal";
 import { TeamCard } from "@/components/site/team-card";
 import { btnPrimary, container, h2, lede } from "@/components/site/styles";
 
-export const metadata = pageMeta("coaches", "/pages/coaches");
+export const metadata = pageMeta("coaches");
 
 export default function CoachesPage() {
   return (

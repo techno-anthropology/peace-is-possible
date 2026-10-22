@@ -6,6 +6,9 @@ export const site = {
   name: "Peace is Possible Recovery Coaching",
   shortName: "Peace is Possible",
   url: "https://peaceispossiblerecovery.com",
+  // The Shopify store: checkout, the contact inbox and policy pages. At the
+  // domain cutover this becomes the store's new Shopify domain.
+  store: "https://peaceispossiblerecovery.com",
   city: "Colorado Springs",
   region: "CO",
   serviceArea: "In person in Colorado Springs and online",
@@ -54,7 +57,7 @@ export const nav: NavItem[] = [
   { slug: "/collections/all", label: "Shop" },
 ];
 
-// Old pages folded into new ones. Production should 301 these.
+// Old pages folded into new ones. next.config.ts serves these as permanent redirects.
 export const redirects = [
   { from: "/pages/our-approach", to: "/pages/eating-disorder-recovery-coaching" },
   { from: "/pages/eating-disorder-support-groups", to: "/pages/resource-library#support-groups" },
@@ -63,49 +66,64 @@ export const redirects = [
   { from: "/collections/merchandise", to: "/collections/all#merch" },
 ];
 
+// Every top-level page: its path (matching the live Shopify URL) and search snippet.
 export const seo = {
   home: {
+    path: "/",
     title: "Eating Disorder Recovery Coaching in Colorado Springs | Peace is Possible",
     description:
       "One-on-one eating disorder and addiction recovery coaching with daily text check-ins. In person in Colorado Springs and online. Book a free phone consultation.",
   },
   coaching: {
+    path: "/pages/eating-disorder-recovery-coaching",
     title: "Eating Disorder Recovery Coaching in Colorado Springs & Online | Peace is Possible",
     description:
       "Weekly coaching and daily text support for binge eating, bulimia, ARFID, restriction and more. $100 a week with a sliding scale. In person or online.",
   },
   binge: {
+    path: "/pages/binge-eating-recovery-coaching",
     title: "Binge Eating Recovery Coaching in Colorado Springs | Peace is Possible",
     description:
       "Compassionate, lived-experience coaching for binge eating. Weekly sessions, daily check-ins, no diets or shame. In person in Colorado Springs or online.",
   },
   coaches: {
+    path: "/pages/coaches",
     title: "Our Coaches: Eating Disorder & Nutrition Coaching in Colorado Springs",
     description:
       "Meet Ronnie Sullivan, recovery coach and founder, and Sara Potter, certified nutritionist. Both coach from their own recovery.",
   },
   about: {
+    path: "/pages/about",
     title: "Ronnie's Recovery Story | Peace is Possible Recovery Coaching",
     description:
       "How Ronnie Sullivan recovered from bulimia and binge eating, and why he started Peace is Possible in Colorado Springs.",
   },
   testimonials: {
+    path: "/pages/testimonials",
     title: "Client Testimonials | Peace is Possible Recovery Coaching",
     description: "What clients say about eating disorder recovery coaching with Ronnie in Colorado Springs.",
   },
   resources: {
+    path: "/pages/resource-library",
     title: "Eating Disorder Resources & Support Groups in Colorado Springs",
     description:
       "Free meditations, recovery articles, coping ideas, local and online eating disorder support groups, and recommended books.",
   },
   shop: {
+    path: "/collections/all",
     title: "Specialty Coffee & Merch That Funds Recovery | Peace is Possible",
     description:
       "Light-roast specialty coffee and merch. Every purchase funds sliding-scale eating disorder recovery coaching.",
   },
   contact: {
+    path: "/pages/contact",
     title: "Contact & Referrals | Peace is Possible Recovery Coaching",
     description: "Questions about coaching, or referring a client? Reach Peace is Possible in Colorado Springs.",
+  },
+  articles: {
+    path: "/blogs/news",
+    title: "Recovery Articles | Peace is Possible Recovery Coaching",
+    description: "Ronnie's articles on mindfulness, self-compassion, intention and authenticity in eating disorder recovery.",
   },
 } as const;
 
@@ -181,9 +199,9 @@ export const coaching = {
   },
   // Sara's services, from the live Shopify products.
   nutrition: [
-    { name: "Nutrition coaching with daily support", price: "$100", unit: "per month", body: "Real-time support for a steadier, more trusting relationship with food. No rigid meal plans.", url: "https://peaceispossiblerecovery.com/products/in-person-nutrition-coaching-monthly" },
-    { name: "Single nutrition session", price: "$90", unit: "one session", body: "In person or remote. We look at your habits, challenges and goals and map a realistic path.", url: "https://peaceispossiblerecovery.com/products/one-on-one-nutrition-coaching-single-session" },
-    { name: "Monthly personalized targets", price: "$75", unit: "per month", body: "Nutrition targets built around your goals and where you are in recovery, reviewed each month.", url: "https://peaceispossiblerecovery.com/products/remote-nutrition-coaching-monthly" },
+    { name: "Nutrition coaching with daily support", price: "$100", unit: "per month", body: "Real-time support for a steadier, more trusting relationship with food. No rigid meal plans.", url: `${site.store}/products/in-person-nutrition-coaching-monthly` },
+    { name: "Single nutrition session", price: "$90", unit: "one session", body: "In person or remote. We look at your habits, challenges and goals and map a realistic path.", url: `${site.store}/products/one-on-one-nutrition-coaching-single-session` },
+    { name: "Monthly personalized targets", price: "$75", unit: "per month", body: "Nutrition targets built around your goals and where you are in recovery, reviewed each month.", url: `${site.store}/products/remote-nutrition-coaching-monthly` },
   ],
   disclaimer: {
     title: "Is coaching the right level of support?",
@@ -501,9 +519,9 @@ export const crisis = {
 export const footer = {
   blurb: "LGBTQ+ friendly eating disorder and addiction recovery coaching. In person in Colorado Springs and online.",
   legal: [
-    { label: "Privacy policy", url: "https://peaceispossiblerecovery.com/policies/privacy-policy" },
-    { label: "Refund policy", url: "https://peaceispossiblerecovery.com/policies/refund-policy" },
-    { label: "Terms of service", url: "https://peaceispossiblerecovery.com/policies/terms-of-service" },
-    { label: "Your privacy choices", url: "https://peaceispossiblerecovery.com/pages/data-sharing-opt-out" },
+    { label: "Privacy policy", url: `${site.store}/policies/privacy-policy` },
+    { label: "Refund policy", url: `${site.store}/policies/refund-policy` },
+    { label: "Terms of service", url: `${site.store}/policies/terms-of-service` },
+    { label: "Your privacy choices", url: `${site.store}/pages/data-sharing-opt-out` },
   ],
 };

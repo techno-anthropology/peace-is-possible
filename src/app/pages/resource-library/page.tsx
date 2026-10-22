@@ -8,7 +8,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { container, h2 } from "@/components/site/styles";
 
-export const metadata = pageMeta("resources", "/pages/resource-library");
+export const metadata = pageMeta("resources");
 
 function LinkList({ items }: { items: ResourceLink[] }) {
   return (

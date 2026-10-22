@@ -3,7 +3,7 @@ import { AppSection, Closing, CoachesTeaser, Explore, Intro, Podcast, Steps, Voi
 import { JsonLd } from "@/components/site/blocks";
 import { businessJsonLd, pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta("home", "/");
+export const metadata = pageMeta("home");
 
 export default function Home() {
   return (

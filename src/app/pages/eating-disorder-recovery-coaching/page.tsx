@@ -8,7 +8,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { btnPrimary, container, h2, textLink } from "@/components/site/styles";
 
-export const metadata = pageMeta("coaching", "/pages/eating-disorder-recovery-coaching");
+export const metadata = pageMeta("coaching");
 
 export default function CoachingPage() {
   const half = Math.ceil(coaching.whoFor.length / 2);

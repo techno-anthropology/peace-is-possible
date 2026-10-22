@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 import { PageHero } from "@/components/site/page-hero";
 import { btnGhost, btnPrimary, container } from "@/components/site/styles";
 
-export const metadata = pageMeta("contact", "/pages/contact");
+export const metadata = pageMeta("contact");
 
 export default function ContactPage() {
   return (
