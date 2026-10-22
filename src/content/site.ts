@@ -1,5 +1,4 @@
 // Single source of truth for every word on the site.
-// All three design directions render this content; none of them own copy.
 // Testimonials, Ronnie's story and the articles are kept word for word from the
 // current Shopify site. Everything else is tightened, deduplicated copy.
 
