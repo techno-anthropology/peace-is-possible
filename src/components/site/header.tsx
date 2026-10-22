@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
 import { nav, site } from "@/content/site";
+import { BagButton } from "./bag";
 import { BookButton } from "./booking";
 import { btnPrimary } from "./styles";
 
@@ -69,20 +70,22 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="ml-auto hidden sm:block lg:ml-2">
-            <BookButton className={`${btnPrimary} !px-5 !py-2.5`} />
+          <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
+            <div className="mr-1.5 hidden sm:block">
+              <BookButton className={`${btnPrimary} !px-5 !py-2.5`} />
+            </div>
+            <BagButton />
+            <button
+              type="button"
+              onClick={() => setMenu((m) => !m)}
+              className="grid size-10 place-items-center rounded-full transition hover:bg-[var(--accent-soft)] active:scale-95 lg:hidden"
+              aria-label={menu ? "Close menu" : "Open menu"}
+              aria-expanded={menu}
+              aria-controls="mobile-menu"
+            >
+              {menu ? <X size={22} /> : <List size={22} />}
+            </button>
           </div>
-
-          <button
-            type="button"
-            onClick={() => setMenu((m) => !m)}
-            className="ml-auto grid size-10 place-items-center rounded-full transition hover:bg-[var(--accent-soft)] active:scale-95 sm:ml-0 lg:hidden"
-            aria-label={menu ? "Close menu" : "Open menu"}
-            aria-expanded={menu}
-            aria-controls="mobile-menu"
-          >
-            {menu ? <X size={22} /> : <List size={22} />}
-          </button>
         </div>
       </header>
 

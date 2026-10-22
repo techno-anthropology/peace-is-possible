@@ -78,6 +78,18 @@ const css = `
   }
 }
 
+/* Bag drawer slides in from the right. */
+@media (prefers-reduced-motion: no-preference) {
+  .bag-sheet[open] {
+    animation: bag-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+@keyframes bag-in {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
 .cn-fadeIn {
   animation: cn-fadeIn 1.6s ease both;
 }

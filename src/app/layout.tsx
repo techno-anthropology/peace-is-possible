@@ -3,6 +3,7 @@ import { Figtree } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
 import { indexable, metadataBase } from "@/lib/seo";
+import { BagProvider } from "@/components/site/bag";
 import { BookingProvider } from "@/components/site/booking";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -26,9 +27,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <SiteStyles />
         <BookingProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <BagProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </BagProvider>
         </BookingProvider>
       </body>
     </html>
